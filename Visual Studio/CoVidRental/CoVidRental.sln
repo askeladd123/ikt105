@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32516.85
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoVidRental", "CoVidRental\CoVidRental.csproj", "{5D321550-838C-4621-927A-A96E5A4ECACB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D321550-838C-4621-927A-A96E5A4ECACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D321550-838C-4621-927A-A96E5A4ECACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D321550-838C-4621-927A-A96E5A4ECACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D321550-838C-4621-927A-A96E5A4ECACB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE4ECDE6-4DB0-44ED-8F5C-453B2B86E3F3}
+	EndGlobalSection
+EndGlobal
