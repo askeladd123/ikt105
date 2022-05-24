@@ -1,0 +1,7 @@
+
+// data entery
+// ++++++++++++++++++++++++++++++
+// a)
+INSERT INTO branch values ('1');
+INSERT INTO branch_address values (1, 'texas', 'boca chica', '1234', 'redneck', 12);
+// b)
