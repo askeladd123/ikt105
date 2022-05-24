@@ -1,0 +1,302 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`branch`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`branch` (
+  `branch_number` INT NOT NULL,
+  PRIMARY KEY (`branch_number`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`branch`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`branch` (
+  `branch_number` INT NOT NULL,
+  PRIMARY KEY (`branch_number`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`employee info`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`employee info` (
+  `staff_number` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `position` VARCHAR(45) NULL,
+  `salary` INT NULL,
+  PRIMARY KEY (`staff_number`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`video`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`video` (
+  `catalog_number` INT NOT NULL,
+  `title` VARCHAR(45) NULL,
+  `category` VARCHAR(45) NULL,
+  `director` VARCHAR(45) NULL,
+  PRIMARY KEY (`catalog_number`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`video copy`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`video copy` (
+  `video_number` INT NOT NULL,
+  `daily_rental_rate` INT NULL,
+  `purchase_price` INT NULL,
+  `status` TINYINT NULL,
+  `branch_number` INT NOT NULL,
+  `catalog_number` INT NOT NULL,
+  PRIMARY KEY (`video_number`),
+  INDEX `fk_video copy_branch1_idx` (`branch_number` ASC) VISIBLE,
+  INDEX `fk_video copy_video1_idx` (`catalog_number` ASC) VISIBLE,
+  CONSTRAINT `fk_video copy_branch1`
+    FOREIGN KEY (`branch_number`)
+    REFERENCES `mydb`.`branch` (`branch_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_video copy_video1`
+    FOREIGN KEY (`catalog_number`)
+    REFERENCES `mydb`.`video` (`catalog_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`employee info`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`employee info` (
+  `staff_number` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `position` VARCHAR(45) NULL,
+  `salary` INT NULL,
+  PRIMARY KEY (`staff_number`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`customer`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`customer` (
+  `member_number` INT NOT NULL,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
+  `adress` VARCHAR(45) NULL,
+  `date_registered` VARCHAR(45) NULL,
+  `staff_number` INT NOT NULL,
+  PRIMARY KEY (`member_number`),
+  INDEX `fk_customer_employee info1_idx` (`staff_number` ASC) VISIBLE,
+  CONSTRAINT `fk_customer_employee info1`
+    FOREIGN KEY (`staff_number`)
+    REFERENCES `mydb`.`employee info` (`staff_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`rent`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`rent` (
+  `rental_number` INT NOT NULL,
+  `date_rented` VARCHAR(45) NULL,
+  `date_returned` VARCHAR(45) NULL,
+  `video_copy_number` INT NOT NULL,
+  `member_number` INT NOT NULL,
+  PRIMARY KEY (`rental_number`),
+  INDEX `fk_rent_video copy1_idx` (`video_copy_number` ASC) VISIBLE,
+  INDEX `fk_rent_customer1_idx` (`member_number` ASC) VISIBLE,
+  CONSTRAINT `fk_rent_video copy1`
+    FOREIGN KEY (`video_copy_number`)
+    REFERENCES `mydb`.`video copy` (`video_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rent_customer1`
+    FOREIGN KEY (`member_number`)
+    REFERENCES `mydb`.`customer` (`member_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`manager`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`manager` (
+  `staff_number` INT NOT NULL,
+  `branch_number` INT NOT NULL,
+  INDEX `fk_manager_CoVidRental1_idx` (`branch_number` ASC) VISIBLE,
+  INDEX `fk_manager_employee info1_idx` (`staff_number` ASC) VISIBLE,
+  PRIMARY KEY (`staff_number`),
+  CONSTRAINT `fk_manager_CoVidRental1`
+    FOREIGN KEY (`branch_number`)
+    REFERENCES `mydb`.`branch` (`branch_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_manager_employee info1`
+    FOREIGN KEY (`staff_number`)
+    REFERENCES `mydb`.`employee info` (`staff_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`supervisor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`supervisor` (
+  `staff_number` INT NOT NULL,
+  `manger_staff_number` INT NOT NULL,
+  PRIMARY KEY (`staff_number`),
+  INDEX `fk_supervisor_manager1_idx` (`manger_staff_number` ASC) VISIBLE,
+  CONSTRAINT `fk_supervisor_employee info1`
+    FOREIGN KEY (`staff_number`)
+    REFERENCES `mydb`.`employee info` (`staff_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_supervisor_manager1`
+    FOREIGN KEY (`manger_staff_number`)
+    REFERENCES `mydb`.`manager` (`staff_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`employee`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`employee` (
+  `staff_number` INT NOT NULL,
+  `supervisor_staff_number` INT NOT NULL,
+  PRIMARY KEY (`staff_number`),
+  INDEX `fk_employees_supervisor1_idx` (`supervisor_staff_number` ASC) VISIBLE,
+  CONSTRAINT `fk_employees_employee info1`
+    FOREIGN KEY (`staff_number`)
+    REFERENCES `mydb`.`employee info` (`staff_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_employees_supervisor1`
+    FOREIGN KEY (`supervisor_staff_number`)
+    REFERENCES `mydb`.`supervisor` (`staff_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`customer registration`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`customer registration` (
+  `customer_member_number` INT NOT NULL,
+  `branch_branch_number` INT NOT NULL,
+  PRIMARY KEY (`customer_member_number`, `branch_branch_number`),
+  INDEX `fk_customer_has_branch_branch1_idx` (`branch_branch_number` ASC) VISIBLE,
+  INDEX `fk_customer_has_branch_customer1_idx` (`customer_member_number` ASC) VISIBLE,
+  CONSTRAINT `fk_customer_has_branch_customer1`
+    FOREIGN KEY (`customer_member_number`)
+    REFERENCES `mydb`.`customer` (`member_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_customer_has_branch_branch1`
+    FOREIGN KEY (`branch_branch_number`)
+    REFERENCES `mydb`.`branch` (`branch_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`branch_address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`branch_address` (
+  `branch_branch_number` INT NOT NULL,
+  `state` VARCHAR(45) NULL,
+  `city` VARCHAR(45) NULL,
+  `zip_code` VARCHAR(4) NULL,
+  `street` VARCHAR(45) NULL,
+  `street_code` INT NULL,
+  INDEX `fk_branch_address_branch1_idx` (`branch_branch_number` ASC) VISIBLE,
+  CONSTRAINT `fk_branch_address_branch1`
+    FOREIGN KEY (`branch_branch_number`)
+    REFERENCES `mydb`.`branch` (`branch_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`member_address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`member_address` (
+  `member_number` INT NOT NULL,
+  `zip_code` INT NOT NULL,
+  `state` VARCHAR(45) NULL,
+  `city` VARCHAR(45) NULL,
+  `street` VARCHAR(45) NULL,
+  `street_number` INT NULL,
+  INDEX `fk_customer_address_customer1_idx` (`member_number` ASC) VISIBLE,
+  CONSTRAINT `fk_customer_address_customer1`
+    FOREIGN KEY (`member_number`)
+    REFERENCES `mydb`.`customer` (`member_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`telephone_line`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`telephone_line` (
+  `tlf_number_id` INT NOT NULL,
+  `branch_number` INT NOT NULL,
+  `tlf_number` VARCHAR(8) NULL,
+  INDEX `fk_telephone_line_branch1_idx` (`branch_number` ASC) VISIBLE,
+  PRIMARY KEY (`tlf_number_id`, `branch_number`),
+  CONSTRAINT `fk_telephone_line_branch1`
+    FOREIGN KEY (`branch_number`)
+    REFERENCES `mydb`.`branch` (`branch_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`role`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`role` (
+  `character_name` VARCHAR(45) NOT NULL,
+  `catalog_number` INT NOT NULL,
+  `actor_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`character_name`),
+  INDEX `fk_role_video1_idx` (`catalog_number` ASC) VISIBLE,
+  CONSTRAINT `fk_role_video1`
+    FOREIGN KEY (`catalog_number`)
+    REFERENCES `mydb`.`video` (`catalog_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
