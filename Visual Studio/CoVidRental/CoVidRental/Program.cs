@@ -29,7 +29,7 @@ Console.WriteLine("Connection successful. \n");
 string[] file = { "" };
 try
 {
-    file = System.IO.File.ReadAllText("SQL_sparringer_test.txt").Split(';', StringSplitOptions.RemoveEmptyEntries);
+    file = System.IO.File.ReadAllText("lol.txt").Split(';', StringSplitOptions.RemoveEmptyEntries);
 }
 catch
 {
@@ -88,4 +88,3 @@ connection.Close();
 
 Console.WriteLine("Press enter to quit. ");
 Console.ReadLine();
-
