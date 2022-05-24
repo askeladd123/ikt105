@@ -36,11 +36,19 @@ ENGINE = InnoDB;
 -- Table `mydb`.`employee info`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`employee info` (
-  `staff_number` INT NOT NULL,
+  `staff number` INT NOT NULL,
+  `branch number` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   `position` VARCHAR(45) NULL,
   `salary` INT NULL,
-  PRIMARY KEY (`staff_number`))
+  `supervisor number` INT NULL,
+  PRIMARY KEY (`staff number`, `branch number`),
+  INDEX `fk_employee info_CoVidRental_idx` (`branch number` ASC) VISIBLE,
+  CONSTRAINT `fk_employee info_CoVidRental`
+    FOREIGN KEY (`branch number`)
+    REFERENCES `mydb`.`branch` (`branch number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -57,9 +65,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`video copy`
+-- Table `mydb`.`video_copy`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`video copy` (
+CREATE TABLE IF NOT EXISTS `mydb`.`video_copy` (
   `video_number` INT NOT NULL,
   `daily_rental_rate` INT NULL,
   `purchase_price` INT NULL,
@@ -83,9 +91,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`employee info`
+-- Table `mydb`.`employee_info`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`employee info` (
+CREATE TABLE IF NOT EXISTS `mydb`.`employee_info` (
   `staff_number` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   `position` VARCHAR(45) NULL,
@@ -101,14 +109,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.`customer` (
   `member_number` INT NOT NULL,
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
-  `adress` VARCHAR(45) NULL,
   `date_registered` VARCHAR(45) NULL,
   `staff_number` INT NOT NULL,
   PRIMARY KEY (`member_number`),
   INDEX `fk_customer_employee info1_idx` (`staff_number` ASC) VISIBLE,
   CONSTRAINT `fk_customer_employee info1`
     FOREIGN KEY (`staff_number`)
-    REFERENCES `mydb`.`employee info` (`staff_number`)
+    REFERENCES `mydb`.`employee_info` (`staff_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -128,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`rent` (
   INDEX `fk_rent_customer1_idx` (`member_number` ASC) VISIBLE,
   CONSTRAINT `fk_rent_video copy1`
     FOREIGN KEY (`video_copy_number`)
-    REFERENCES `mydb`.`video copy` (`video_number`)
+    REFERENCES `mydb`.`video_copy` (`video_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_rent_customer1`
@@ -155,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`manager` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_manager_employee info1`
     FOREIGN KEY (`staff_number`)
-    REFERENCES `mydb`.`employee info` (`staff_number`)
+    REFERENCES `mydb`.`employee_info` (`staff_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -171,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`supervisor` (
   INDEX `fk_supervisor_manager1_idx` (`manger_staff_number` ASC) VISIBLE,
   CONSTRAINT `fk_supervisor_employee info1`
     FOREIGN KEY (`staff_number`)
-    REFERENCES `mydb`.`employee info` (`staff_number`)
+    REFERENCES `mydb`.`employee_info` (`staff_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_supervisor_manager1`
@@ -192,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`employee` (
   INDEX `fk_employees_supervisor1_idx` (`supervisor_staff_number` ASC) VISIBLE,
   CONSTRAINT `fk_employees_employee info1`
     FOREIGN KEY (`staff_number`)
-    REFERENCES `mydb`.`employee info` (`staff_number`)
+    REFERENCES `mydb`.`employee_info` (`staff_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_employees_supervisor1`
@@ -204,9 +211,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`customer registration`
+-- Table `mydb`.`customer_registration`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`customer registration` (
+CREATE TABLE IF NOT EXISTS `mydb`.`customer_registration` (
   `customer_member number` INT NOT NULL,
   `branch_branch number` INT NOT NULL,
   PRIMARY KEY (`customer_member number`, `branch_branch number`),
