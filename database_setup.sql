@@ -236,16 +236,16 @@ ENGINE = InnoDB;
 -- Table `mydb`.`branch_address`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`branch_address` (
-  `branch number` INT NOT NULL,
+  `branch_number` INT NOT NULL,
   `state` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `zip_code` VARCHAR(4) NULL,
   `street` VARCHAR(45) NULL,
   `street_code` INT NULL,
-  INDEX `fk_branch_address_branch1_idx` (`branch number` ASC) VISIBLE,
-  PRIMARY KEY (`branch number`),
+  INDEX `fk_branch_address_branch1_idx` (`branch_number` ASC) VISIBLE,
+  PRIMARY KEY (`branch_number`),
   CONSTRAINT `fk_branch_address_branch1`
-    FOREIGN KEY (`branch number`)
+    FOREIGN KEY (`branch_number`)
     REFERENCES `mydb`.`branch` (`branch_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

@@ -1,10 +1,10 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
 
-Console.WriteLine("Enter connection data (enter \"d\" for default data): ");
+Console.WriteLine("Enter connection data, enter \"d\" for default data: ");
 string connection_data = Console.ReadLine();
 
-// prove a koble til
+// koble til server
 if (connection_data == "d")
 {
     connection_data = @"server=localhost;userid=root;password=bolle;database=mydb"; //denne må endres på
@@ -23,22 +23,63 @@ catch
     Console.ReadLine();
     Environment.Exit(-1); 
 }
-Console.WriteLine("Connection successful. ");
+Console.WriteLine("Connection successful. \n");
 
-string query = "select * from employee";
-var command = new MySqlCommand(query, connection);
-MySqlDataReader data_reader = command.ExecuteReader();
-
-while(data_reader.Read())
+// lese fil
+string[] file = { "" };
+try
 {
-    Console.WriteLine("");
-    Console.WriteLine(data_reader.GetString(0));
+    file = System.IO.File.ReadAllText("SQL_sparringer_test.txt").Split(';', StringSplitOptions.RemoveEmptyEntries);
+}
+catch
+{
+    Console.WriteLine("Failed to read file. ");
+    Console.WriteLine("Press enter to quit. ");
+    Console.ReadLine();
+    Environment.Exit(-1);
 }
 
+// kjør alle spørriger
+foreach (string query in file)
+{
+    Console.WriteLine(query);
+    MySqlCommand command = new MySqlCommand(query, connection);
 
+    if (query.IndexOf("select", StringComparison.CurrentCultureIgnoreCase) != -1)
+    {
+        // alle SELECT spørringer
+        MySqlDataReader data_reader = command.ExecuteReader();
+
+        Console.WriteLine("Query successful. Data recieved: ");
+        while (data_reader.Read())
+        {
+            Console.Write(" * ");
+            int i = 0;
+            for (; i < data_reader.FieldCount - 1; i++)
+            {
+                Console.Write(data_reader[i].ToString() + ", ");
+            }
+            Console.Write(data_reader[i].ToString() + "\n");
+        }
+        Console.WriteLine("");
+    }
+    else
+    {
+        // alle andre spørringer
+        try
+        {
+            command.ExecuteNonQuery();
+            Console.WriteLine("Query successful. \n");
+        }
+        catch (MySqlException e)
+        {
+            Console.WriteLine("Query failed: {0} \n", e.Message);
+        }
+    }
+}
 
 connection.Close();
 
-Console.WriteLine("Press a key to quit. ");
+Console.WriteLine("Press enter to quit. ");
 Console.ReadLine();
 

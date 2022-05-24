@@ -1,0 +1,2 @@
+INSERT INTO employee_info values (1, 'kjartan fisken', 'hvitlaukspresser', 100000000);
+SELECT * FROM employee_info;
