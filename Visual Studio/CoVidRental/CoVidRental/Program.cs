@@ -42,6 +42,10 @@ catch
 // kjør alle spørriger
 foreach (string query in file)
 {
+    if (string.IsNullOrWhiteSpace(query))
+    {
+        continue;
+    }
     Console.WriteLine(query);
     MySqlCommand command = new MySqlCommand(query, connection);
 
@@ -62,6 +66,8 @@ foreach (string query in file)
             Console.Write(data_reader[i].ToString() + "\n");
         }
         Console.WriteLine("");
+
+        data_reader.Close();
     }
     else
     {

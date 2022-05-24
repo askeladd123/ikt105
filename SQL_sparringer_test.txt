@@ -1,2 +1,12 @@
 INSERT INTO employee_info values (1, 'kjartan fisken', 'hvitlaukspresser', 100000000);
+INSERT INTO employee_info values (2, 'gunnlaug harebraathen', 'gummistrekker', 50000);
+
+SELECT * FROM employee_info;
+
+DELETE FROM employee_info WHERE staff_number = 1;
+
+SELECT * FROM employee_info;
+
+UPDATE employee_info SET salary = 69000 WHERE staff_number = 2;
+
 SELECT * FROM employee_info;
