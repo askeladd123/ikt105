@@ -18,8 +18,8 @@ USE `mydb` ;
 -- Table `mydb`.`branch`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`branch` (
-  `branch number` INT NOT NULL,
-  PRIMARY KEY (`branch number`))
+  `branch_number` INT NOT NULL,
+  PRIMARY KEY (`branch_number`))
 ENGINE = InnoDB;
 
 
@@ -27,8 +27,8 @@ ENGINE = InnoDB;
 -- Table `mydb`.`branch`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`branch` (
-  `branch number` INT NOT NULL,
-  PRIMARY KEY (`branch number`))
+  `branch_number` INT NOT NULL,
+  PRIMARY KEY (`branch_number`))
 ENGINE = InnoDB;
 
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`employee info` (
   INDEX `fk_employee info_CoVidRental_idx` (`branch number` ASC) VISIBLE,
   CONSTRAINT `fk_employee info_CoVidRental`
     FOREIGN KEY (`branch number`)
-    REFERENCES `mydb`.`branch` (`branch number`)
+    REFERENCES `mydb`.`branch` (`branch_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`video_copy` (
   INDEX `fk_video copy_video1_idx` (`catalog_number` ASC) VISIBLE,
   CONSTRAINT `fk_video copy_branch1`
     FOREIGN KEY (`branch_number`)
-    REFERENCES `mydb`.`branch` (`branch number`)
+    REFERENCES `mydb`.`branch` (`branch_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_video copy_video1`
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`manager` (
   PRIMARY KEY (`staff_number`),
   CONSTRAINT `fk_manager_CoVidRental1`
     FOREIGN KEY (`branch_number`)
-    REFERENCES `mydb`.`branch` (`branch number`)
+    REFERENCES `mydb`.`branch` (`branch_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_manager_employee info1`
@@ -173,16 +173,16 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`supervisor` (
   `staff_number` INT NOT NULL,
-  `manger_staff_number` INT NOT NULL,
+  `manager_staff_number` INT NOT NULL,
   PRIMARY KEY (`staff_number`),
-  INDEX `fk_supervisor_manager1_idx` (`manger_staff_number` ASC) VISIBLE,
+  INDEX `fk_supervisor_manager1_idx` (`manager_staff_number` ASC) VISIBLE,
   CONSTRAINT `fk_supervisor_employee info1`
     FOREIGN KEY (`staff_number`)
     REFERENCES `mydb`.`employee_info` (`staff_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_supervisor_manager1`
-    FOREIGN KEY (`manger_staff_number`)
+    FOREIGN KEY (`manager_staff_number`)
     REFERENCES `mydb`.`manager` (`staff_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`customer_registration` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_customer_has_branch_branch1`
     FOREIGN KEY (`branch_branch number`)
-    REFERENCES `mydb`.`branch` (`branch number`)
+    REFERENCES `mydb`.`branch` (`branch_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -236,16 +236,17 @@ ENGINE = InnoDB;
 -- Table `mydb`.`branch_address`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`branch_address` (
-  `branch_branch number` INT NOT NULL,
+  `branch number` INT NOT NULL,
   `state` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `zip_code` VARCHAR(4) NULL,
   `street` VARCHAR(45) NULL,
   `street_code` INT NULL,
-  INDEX `fk_branch_address_branch1_idx` (`branch_branch number` ASC) VISIBLE,
+  INDEX `fk_branch_address_branch1_idx` (`branch number` ASC) VISIBLE,
+  PRIMARY KEY (`branch number`),
   CONSTRAINT `fk_branch_address_branch1`
-    FOREIGN KEY (`branch_branch number`)
-    REFERENCES `mydb`.`branch` (`branch number`)
+    FOREIGN KEY (`branch number`)
+    REFERENCES `mydb`.`branch` (`branch_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -256,12 +257,13 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`member_address` (
   `member_number` INT NOT NULL,
-  `zip_code` INT NOT NULL,
   `state` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
+  `zip_code` VARCHAR(4) NOT NULL,
   `street` VARCHAR(45) NULL,
   `street_number` INT NULL,
   INDEX `fk_customer_address_customer1_idx` (`member_number` ASC) VISIBLE,
+  PRIMARY KEY (`member_number`),
   CONSTRAINT `fk_customer_address_customer1`
     FOREIGN KEY (`member_number`)
     REFERENCES `mydb`.`customer` (`member_number`)
@@ -281,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`telephone_line` (
   PRIMARY KEY (`tlf_number_id`, `branch_number`),
   CONSTRAINT `fk_telephone_line_branch1`
     FOREIGN KEY (`branch_number`)
-    REFERENCES `mydb`.`branch` (`branch number`)
+    REFERENCES `mydb`.`branch` (`branch_number`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
