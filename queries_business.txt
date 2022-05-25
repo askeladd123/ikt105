@@ -28,3 +28,13 @@ FROM customer_registration, customer
 WHERE customer.member_number=customer_registration.member_number
 AND YEAR(customer.date_registered)='2022'
 ORDER BY customer_registration.branch_number;
+
+select video_supplier.name, supplier_address.state, supplier_address.city, supplier_address.zip_code, supplier_address.street, supplier_address.street_code, video_supplier.telephone from video_supplier, supplier_address where video_supplier.supplier_number = supplier_address.supplier_number order by video_supplier.supplier_number;
+
+select video_supplier.name, video_supplier.telephone from video_supplier where video_supplier.supplier_number = 1;
+
+select video_order.order_number, video_order.quantity, video_order.price, video_order.date_placed, video_order.date_recived, video_order.catalog_number, video_order.supplier_number, video_order.branch_number from video_order where video_order.supplier_number = 1 order by video_order.date_placed;
+
+select video_order.order_number, video_order.quantity, video_order.price, video_order.date_placed, video_order.date_recived, video_order.catalog_number, video_order.supplier_number, video_order.branch_number from video_order where video_order.date_placed = '2020/01/01';
+
+select video_copy.branch_number, count(video_copy.branch_number) from rent, video_copy where rent.video_copy_number = video_copy.video_number and rent.date_rented > '2012/09/01' and rent.date_rented < '2012/09/03' order by video_copy.branch_number;
