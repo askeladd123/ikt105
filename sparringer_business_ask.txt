@@ -1,0 +1,22 @@
+SET FOREIGN_KEY_CHECKS=0;
+
+INSERT INTO video VALUES (7, 'Læren om Sirkler', 'Matte-thrillere', 'Sverre Lunøe');
+INSERT INTO video_supplier VALUES (8, 'ARK Movies', 28846618, 'single');
+INSERT INTO video_order VALUES (8, 120, 15000, '2022/05/25', '2022/05/26', 7, 8, 1);
+
+UPDATE video SET director='Sverre Lunøe-Nielsen' WHERE catalog_number=7;
+UPDATE video_supplier SET status='taken' WHERE supplier_number=8;
+UPDATE video_order SET quantity=121, price=15500 WHERE order_number=8;
+
+DELETE FROM video WHERE catalog_number=1;
+DELETE FROM video_supplier WHERE supplier_number=1;
+DELETE FROM video_order WHERE order_number=1;
+
+SELECT name, position, salary FROM employee_info, branch ORDER BY branch_number;
+SELECT name FROM employee_info, manager WHERE employee_info.staff_number=manager.staff_number;
+SELECT catalog_number, title FROM video ORDER BY title;
+
+SELECT branch_number, title, COUNT(video_copy.catalog_number) 
+FROM video_copy, video
+WHERE video_copy.catalog_number=video.catalog_number
+GROUP BY video.catalog_number, branch_number;
