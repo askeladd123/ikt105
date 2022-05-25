@@ -28,3 +28,10 @@ FROM customer_registration, customer
 WHERE customer.member_number=customer_registration.member_number
 AND YEAR(customer.date_registered)='2022'
 ORDER BY customer_registration.branch_number;
+
+SELECT COUNT(rent.video_copy_number) 
+FROM rent, video_copy
+WHERE rent.video_copy_number=video_copy.video_number
+AND rent.date_rented BETWEEN '2018-0-0' AND '2022-0-0'
+GROUP BY video_copy.branch_number
+ORDER BY video_copy.branch_number;

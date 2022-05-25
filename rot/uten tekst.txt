@@ -1,0 +1,75 @@
+INSERT INTO branch values ('7');
+
+INSERT INTO branch_address values (7, 'texas', 'boca chica', '1234', 'redneck', 12);
+
+INSERT INTO employee_info values (7, 'peter griffin', 'manager', 200000);
+
+INSERT INTO manager values (7, 7);
+
+INSERT INTO video values (7, 'sadoland', 'comedy', 'tarantino');
+INSERT INTO role values ('borat', 7, 'adam sandler');
+
+INSERT INTO video_copy VALUES (7, 7, 200, 0, 7, 7);
+
+INSERT INTO customer VALUES (7, 'bruno', 'banani', '1995/11/12', 7);
+INSERT INTO member_address VALUES (7, 'california', 'los angeles', '2355', 'beverly hills', 50);
+INSERT INTO customer_registration VALUES (7, 7);
+
+INSERT INTO rent VALUES (7, '2034/02/01', '2034/02/02', 7, 7);
+
+UPDATE branch_address SET state = 'shitstate', city = 'crapcity', zip_code = '9999', street = 'fuckstreet', street_code = 69 WHERE branch_number = 1;
+DELETE FROM branch_address WHERE branch_number = 1;
+DELETE FROM branch WHERE branch_number = 1;
+
+UPDATE employee_info SET name = 'newname', position = 'newposition', salary = 0 WHERE staff_number = 1;
+DELETE FROM employee_info WHERE staff_number = 1;
+DELETE FROM manager WHERE staff_number = 1;
+
+UPDATE video SET title = 'stepsister', category = 'porn', director = 'stepbrother' WHERE catalog_number = 2;
+UPDATE role SET character_name = 'daddy', actor_name = 'joey exotic' WHERE catalog_number = 2;
+DELETE FROM video WHERE catalog_number = 3;
+DELETE FROM role WHERE catalog_number = 3;
+
+UPDATE video_copy SET daily_rental_rate = 20, purchase_price = 720, status = 0, branch_number = 4, catalog_number = 4 WHERE video_number = 4;
+DELETE FROM video_copy WHERE video_number = 5;
+
+UPDATE customer SET first_name = 'karl', last_name = 'johan', date_registered = '1894/07/20', staff_number = 5 WHERE member_number = 5;
+UPDATE member_address SET state = 'nevada', city = 'las vegas', zip_code = '3464', street = 'lastreet', street_number = 7 WHERE member_number = 5;
+DELETE FROM customer WHERE member_number = 2;
+DELETE FROM member_address WHERE member_number = 2;
+DELETE FROM customer_registration WHERE member_number = 2; 
+
+UPDATE rent SET date_rented = '2020/10/04', date_returned = '2020/11/05', video_copy_number = 6, member_number = 1 WHERE rental_number = 1;
+DELETE FROM rent WHERE rental_number = 2;
+
+SELECT * FROM branch_address WHERE city = 'city5';
+
+SELECT employee_info.name, employee_info.position, employee_info.salary FROM employee_info, manager WHERE employee_info.staff_number = manager.staff_number AND manager.branch_number = 2 ORDER BY employee_info.name;
+
+SELECT employee_info.name, employee_info.position, employee_info.salary FROM employee_info, manager WHERE employee_info.staff_number = manager.staff_number AND manager.branch_number = 2 ORDER BY employee_info.name;
+
+SELECT employee_info.name FROM employee_info, manager WHERE employee_info.staff_number = manager.staff_number GROUP BY manager.branch_number ORDER BY branch_number;
+
+SELECT video.title, video.category, video_copy.status FROM video, video_copy WHERE video.catalog_number = video_copy.catalog_number AND video_copy.branch_number = 2 ORDER BY video.category;
+
+SELECT video.title, video.category, video_copy.status FROM video, video_copy, role WHERE video.catalog_number = video_copy.catalog_number = role.catalog_number AND video_copy.branch_number = 2 AND role.actor_name = 'actor1' ORDER BY video.title;
+
+SELECT video.title, video.category, video_copy.status FROM video, video_copy WHERE video.catalog_number = video_copy.catalog_number AND video.director = 'direktor4' AND video_copy.branch_number = 4 ORDER BY video.title;
+
+SELECT video.catalog_number, video.title, video.category, video.director FROM customer, rent, video_copy, video WHERE customer.member_number = rent.member_number AND rent.video_copy_number = video_copy.video_number AND video_copy.catalog_number = video.catalog_number AND customer.member_number = 6;
+
+SELECT video_number, daily_rental_rate, purchase_price, status, branch_number, catalog_number FROM video_copy WHERE branch_number = 4;
+
+SELECT title FROM video WHERE category = 'comedy' ORDER BY title;
+
+SELECT video.category, count(video.category) FROM video GROUP BY video.category;
+
+SELECT SUM(video_copy.purchase_price) FROM video_copy;
+
+SELECT role.actor_name, count(role.actor_name) FROM role GROUP BY role.actor_name ORDER BY role.actor_name;
+
+SELECT year(customer.date_registered), count(year(customer.date_registered)) from customer, customer_registration WHERE customer.member_number = customer_registration.member_number AND year(customer.date_registered) = 2020 GROUP BY year(customer.date_registered) ORDER BY customer_registration.branch_number;
+
+SELECT video_copy.branch_number, COUNT(video_copy.branch_number) FROM video_copy GROUP BY video_copy.branch_number ORDER BY video_copy.branch_number; 
+
+

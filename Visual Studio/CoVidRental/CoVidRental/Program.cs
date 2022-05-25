@@ -11,9 +11,9 @@ Console.WriteLine("Loading scripts:");
 Dictionary<string, string> scripts = new Dictionary<string, string>();
 try
 {
-    scripts.Add("sparringer_populate.txt", System.IO.File.ReadAllText("sparringer_populate.txt"));
-    scripts.Add("sparringer_branch.txt", System.IO.File.ReadAllText("sparringer_branch.txt"));
-    scripts.Add("sparringer_business.txt", System.IO.File.ReadAllText("sparringer_business.txt"));
+    scripts.Add("queries_populate.txt", System.IO.File.ReadAllText("queries_populate.txt"));
+    scripts.Add("queries_branch.txt", System.IO.File.ReadAllText("queries_branch.txt"));
+    scripts.Add("queries_business.txt", System.IO.File.ReadAllText("queries_business.txt"));
     Console.WriteLine("\tscipts loaded. \n");
 }
 catch (Exception e)
