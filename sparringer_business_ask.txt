@@ -20,3 +20,11 @@ SELECT branch_number, title, COUNT(video_copy.catalog_number)
 FROM video_copy, video
 WHERE video_copy.catalog_number=video.catalog_number
 GROUP BY video.catalog_number, branch_number;
+
+SELECT branch_number, COUNT(branch_number) FROM customer_registration GROUP BY branch_number;
+
+SELECT customer_registration.branch_number, COUNT(customer_registration.member_number) 
+FROM customer_registration, customer
+WHERE customer.member_number=customer_registration.member_number
+AND YEAR(customer.date_registered)='2022'
+ORDER BY customer_registration.branch_number;
