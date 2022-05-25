@@ -1,3 +1,5 @@
+SET FOREIGN_KEY_CHECKS=0;
+
 INSERT INTO branch values ('7');
 
 INSERT INTO branch_address values (7, 'texas', 'boca chica', '1234', 'redneck', 12);
