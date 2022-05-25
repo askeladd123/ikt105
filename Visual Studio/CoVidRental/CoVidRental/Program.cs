@@ -31,9 +31,9 @@ string connection_data = Console.ReadLine();
 // koble til server
 if (connection_data == "d")
 {
-    connection_data = @"server=localhost;userid=root;password=bolle;database=mydb";
+    connection_data = "server=localhost;userid=root;password=bolle;database=mydb";
 }
-MySqlConnection connection = new MySqlConnection(connection_data);
+MySqlConnection connection;
 
 try
 {
@@ -41,13 +41,15 @@ try
     connection.Open();
     Console.WriteLine("\tconnection successful. \n");
 }
-catch (MySqlException e)
+catch (Exception e)
 { 
     Console.WriteLine("connection failed: {0}", e.Message);
     Console.WriteLine("Press a key to quit. ");
     Console.ReadLine();
     Environment.Exit(-1);
 }
+
+//connection = new MySqlConnection(connection_data);
 
 Console.WriteLine(" - - - - - - - - - - - -\n");
 
@@ -72,6 +74,10 @@ foreach (KeyValuePair<string, string> pair in scripts)
             MySqlDataReader data_reader = command.ExecuteReader();
 
             Console.WriteLine("\tQuery successful. Data recieved: ");
+            if (!data_reader.HasRows)
+            {
+                Console.WriteLine("\t(no rows in data)\n");
+            }
             while (data_reader.Read())
             {
                 Console.Write("\t* ");
