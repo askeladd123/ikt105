@@ -33,12 +33,14 @@ if (connection_data == "d")
 {
     connection_data = "server=localhost;userid=root;password=bolle;database=mydb";
 }
+
 MySqlConnection connection;
 
 try
 {
     connection = new MySqlConnection(connection_data);
     connection.Open();
+    connection.Close();
     Console.WriteLine("\tconnection successful. \n");
 }
 catch (Exception e)
@@ -49,7 +51,8 @@ catch (Exception e)
     Environment.Exit(-1);
 }
 
-//connection = new MySqlConnection(connection_data);
+connection = new MySqlConnection(connection_data);
+connection.Open();
 
 Console.WriteLine(" - - - - - - - - - - - -\n");
 
