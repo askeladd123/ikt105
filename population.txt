@@ -1,0 +1,93 @@
+branch:
+INSERT INTO branch values ('1');
+INSERT INTO branch values ('2');
+INSERT INTO branch values ('3');
+INSERT INTO branch values ('4');
+INSERT INTO branch values ('5');
+INSERT INTO branch values ('6');
+
+branch_address:
+INSERT INTO branch_address values (1, 'state1', 'city1', '1001', 'street1', 1);
+INSERT INTO branch_address values (2, 'state2', 'city2', '1002', 'street2', 2);
+INSERT INTO branch_address values (3, 'state3', 'city3', '1003', 'street3', 3);
+INSERT INTO branch_address values (4, 'state4', 'city4', '1004', 'street4', 4);
+INSERT INTO branch_address values (5, 'state5', 'city5', '1005', 'street5', 5);
+INSERT INTO branch_address values (6, 'state6', 'city6', '1006', 'street6', 6);
+
+employee_info:
+INSERT INTO employee_info values (1, 'name1', 'manager', 200001);
+INSERT INTO employee_info values (2, 'name2', 'manager', 200002);
+INSERT INTO employee_info values (3, 'name3', 'manager', 200003);
+INSERT INTO employee_info values (4, 'name4', 'manager', 200004);
+INSERT INTO employee_info values (5, 'name5', 'manager', 200005);
+INSERT INTO employee_info values (6, 'name6', 'manager', 200006);
+
+manager:
+INSERT INTO manager values (1, 1);
+INSERT INTO manager values (2, 2);
+INSERT INTO manager values (3, 3);
+INSERT INTO manager values (4, 4);
+INSERT INTO manager values (5, 5);
+INSERT INTO manager values (6, 6);
+
+video:
+INSERT INTO video values (1, 'moviename1', 'genre1', 'direktor1');
+INSERT INTO video values (2, 'moviename2', 'genre2', 'direktor2');
+INSERT INTO video values (3, 'moviename3', 'genre3', 'direktor3');
+INSERT INTO video values (4, 'moviename4', 'genre4', 'direktor4');
+INSERT INTO video values (5, 'moviename5', 'genre5', 'direktor5');
+INSERT INTO video values (6, 'moviename6', 'genre6', 'direktor6');
+
+role:
+INSERT INTO role values ('character1', 1, 'actor1');
+INSERT INTO role values ('character2', 2, 'actor2');
+INSERT INTO role values ('character3', 3, 'actor3');
+INSERT INTO role values ('character4', 4, 'actor4');
+INSERT INTO role values ('character5', 5, 'actor5');
+INSERT INTO role values ('character6', 6, 'actor6');
+
+video_copy:
+INSERT INTO video_copy VALUES (1, 1, 201, 0, 1, 1);
+INSERT INTO video_copy VALUES (2, 2, 202, 1, 2, 2);
+INSERT INTO video_copy VALUES (3, 3, 203, 0, 3, 3);
+INSERT INTO video_copy VALUES (4, 4, 204, 1, 4, 4);
+INSERT INTO video_copy VALUES (5, 5, 205, 0, 5, 5);
+INSERT INTO video_copy VALUES (6, 6, 206, 1, 6, 6);
+
+customer:
+INSERT INTO customer VALUES (1, 'firtname1', 'lastname1', '1991/11/21', 1);
+INSERT INTO customer VALUES (2, 'firtname2', 'lastname2', '1991/11/22', 2);
+INSERT INTO customer VALUES (3, 'firtname3', 'lastname3', '1991/11/23', 3);
+INSERT INTO customer VALUES (4, 'firtname4', 'lastname4', '1991/11/24', 4);
+INSERT INTO customer VALUES (5, 'firtname5', 'lastname5', '1991/11/25', 5);
+INSERT INTO customer VALUES (6, 'firtname6', 'lastname6', '1991/11/26', 6);
+
+member_address:
+INSERT INTO member_address VALUES (1, 'state1', 'city1', '1001', 'street1', 1);
+INSERT INTO member_address VALUES (2, 'state2', 'city2', '1002', 'street2', 2);
+INSERT INTO member_address VALUES (3, 'state3', 'city3', '1003', 'street3', 3);
+INSERT INTO member_address VALUES (4, 'state4', 'city4', '1004', 'street4', 4);
+INSERT INTO member_address VALUES (5, 'state5', 'city5', '1005', 'street5', 5);
+INSERT INTO member_address VALUES (6, 'state6', 'city6', '1006', 'street6', 6);
+
+customer_registration:
+INSERT INTO customer_registration VALUES (1, 1);
+INSERT INTO customer_registration VALUES (2, 2);
+INSERT INTO customer_registration VALUES (3, 3);
+INSERT INTO customer_registration VALUES (4, 4);
+INSERT INTO customer_registration VALUES (5, 5);
+INSERT INTO customer_registration VALUES (6, 6);
+
+rent:
+INSERT INTO rent VALUES (1, '2012/09/01', '2012/10/01', 1, 1);
+INSERT INTO rent VALUES (2, '2012/09/02', '2012/10/02', 2, 2);
+INSERT INTO rent VALUES (3, '2012/09/03', '2012/10/03', 3, 3);
+INSERT INTO rent VALUES (4, '2012/09/04', '2012/10/04', 4, 4);
+INSERT INTO rent VALUES (5, '2012/09/05', '2012/10/05', 5, 5);
+INSERT INTO rent VALUES (6, '2012/09/06', '2012/10/06', 6, 6);
+
+
+
+
+
+
