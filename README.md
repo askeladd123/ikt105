@@ -4,11 +4,11 @@ In this folder you can find different files for "Eksamenh_h22".
 
 ## Conceptual data model in EA
 
-abc
-  
+You need Enterprise Architect to open "models_conceptual&physical.qea", where you can find the conceptual model. Use this file together with "data_dictionary.docx".
+
 ## Logical data model in EA
 
-abc
+The logical model is also in "models_conceptual&physical.qea", and again, use the data dictionary.
 
 ## Physical data model in EA  
 
@@ -16,7 +16,7 @@ abc
 
 ## Physical data model in MySql
 
-abc
+We used MySQL to generate a script to create the required database. It's called "database_setup.txt", and you can copy paste into MySQL's server interface to get it running.
 
 ## Console application in C#
 
